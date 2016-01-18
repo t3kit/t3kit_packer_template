@@ -16,7 +16,7 @@
                 "scripts/vagrant.sh",
                 "scripts/dep.sh",
                 "scripts/cleanup.sh",
-                "scripts/zerodisk.sh"
+                "scripts/zerodisk.sh",
                 "scripts/install-solr-tomcat.sh"
             ],
             "override": {
