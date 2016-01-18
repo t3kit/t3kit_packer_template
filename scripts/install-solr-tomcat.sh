@@ -114,18 +114,18 @@ white="\033[37m"
 # Color-echo, Argument $1 = message, Argument $2 = color
 cecho ()
 {
-	local default_msg="No message passed."
+	#local default_msg="No message passed."
 
 	# Defaults to default message.
 	message=${1:-$default_msg}
 
 	# Defaults to black, if not specified.
-	color=${2:-$black}
+	# color=${2:-$black}
 
-	echo -e "$color$message"
+	echo -e "$message"
 
 	# Reset text attributes to normal + without clearing screen.
-	tput sgr0
+	#tput sgr0
 
 	return
 }
@@ -343,3 +343,4 @@ cecho "Starting Tomcat." $green
 
 cecho "Done." $green
 cecho "Now browse to http://localhost:8080/solr/" $green
+exit 0
