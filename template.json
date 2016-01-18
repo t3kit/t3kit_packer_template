@@ -17,6 +17,7 @@
                 "scripts/dep.sh",
                 "scripts/cleanup.sh",
                 "scripts/zerodisk.sh"
+                "scripts/install-solr-tomcat.sh"
             ],
             "override": {
                 "virtualbox-iso": {
@@ -66,7 +67,7 @@
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "virtualbox",
-                "version": "0.0.3"
+                "version": "0.0.4"
             }
         }]
     ]
