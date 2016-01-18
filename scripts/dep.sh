@@ -35,6 +35,9 @@ apt-get -y install mysql-server > /dev/null 2>&1
 # Install SQlibsqlite3-dev ruby1.9.1-dev
 apt-get -y install libsqlite3-dev ruby1.9.1-dev > /dev/null 2>&1
 
+# Install openjdk-7
+apt-get -y install openjdk-7-jdk > /dev/null 2>&1
+
 # Install mailcatcher as a Ruby gem
 gem install mailcatcher > /dev/null 2>&1
 
@@ -101,10 +104,15 @@ EOF
 #Adding some locales
 locale-gen en_AU.utf8 > /dev/null 2>&1
 locale-gen en_DK.utf8 > /dev/null 2>&1
-locale-gen en_GB.utf8 > /dev/null 2>&1
-#locale-gen en_HK.utf8 > /dev/null 2>&1
-#locale-gen en_IE.utf8 > /dev/null 2>&1
 locale-gen en_US.utf8 > /dev/null 2>&1
+locale-gen da_DK.utf8 > /dev/null 2>&1
+locale-gen en_GB.utf8 > /dev/null 2>&1
+locale-gen de_DE.utf8 > /dev/null 2>&1
+locale-gen ro_RO.utf8 > /dev/null 2>&1
+locale-gen fi_FI.utf8 > /dev/null 2>&1
+locale-gen nb_NO.utf8 > /dev/null 2>&1
+locale-gen nn_NO.utf8 > /dev/null 2>&1
+locale-gen is_IS.utf8 > /dev/null 2>&1
 locale-gen sv_SE.utf8 > /dev/null 2>&1
 locale-gen uk_UA.utf8 > /dev/null 2>&1
 
