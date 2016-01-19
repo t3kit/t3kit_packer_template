@@ -333,11 +333,6 @@ rm -rf apache-tomcat-$TOMCAT_VERSION.zip
 
 # ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
-cecho "Altering server.conf so we can access solr from extenal IP" $green
-sudo sed -i 's/address="127.0.0.1"/address="0.0.0.0"/g' /opt/solr-tomcat/tomcat/conf/server.xml
-
-# ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-
 cecho "Starting Tomcat." $green
 ./tomcat/bin/startup.sh
 

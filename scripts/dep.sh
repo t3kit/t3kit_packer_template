@@ -115,6 +115,11 @@ locale-gen nn_NO.utf8 > /dev/null 2>&1
 locale-gen is_IS.utf8 > /dev/null 2>&1
 locale-gen sv_SE.utf8 > /dev/null 2>&1
 locale-gen uk_UA.utf8 > /dev/null 2>&1
+locale-gen uk_UA.utf8 > /dev/null 2>&1
+locale-gen fr_FR.utf8 > /dev/null 2>&1
+locale-gen es_ES.utf8 > /dev/null 2>&1
+locale-gen it_IT.utf8 > /dev/null 2>&1
+locale-gen nl_NL.utf8 > /dev/null 2>&1
 
 # enable mod rewrite
 a2enmod rewrite > /dev/null 2>&1
