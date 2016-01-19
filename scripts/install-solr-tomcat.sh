@@ -20,7 +20,7 @@ APACHE_ARCHIVE="http://archive.apache.org/dist/"
 # Set default language for cores to download to english, if no commandline parameters are given
 if [ $# -eq 0 ]
 then
-	LANGUAGES=swedish english finnish norwegian ukrainian danish italian german romanian spanish french dutch
+	LANGUAGES="swedish english finnish norwegian ukrainian danish italian german romanian spanish french dutch"
 else
 	LANGUAGES=$@
 fi
