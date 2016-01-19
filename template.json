@@ -14,7 +14,7 @@
                 "scripts/base.sh",
                 "scripts/virtualbox.sh",
                 "scripts/vagrant.sh",
-                "scripts/install-solr-tomcat.sh swedish english finnish norwegian ukrainian danish italian german romanian spanish french dutch",
+                "scripts/install-solr-tomcat.sh",
                 "scripts/post-install-solr-tomcat.sh",
                 "scripts/dep.sh",
                 "scripts/cleanup.sh",
