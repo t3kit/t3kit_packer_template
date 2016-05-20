@@ -24,7 +24,52 @@ apt-get -y install graphicsmagick
 apt-get -y install git curl
 
 # Install tools
-apt-get -y install build-essential software-properties-common iotop mytop iftop mc vim wget tmux
+apt-get -y install build-essential software-properties-common iotop mytop iftop htop mc vim wget tmux
+
+# node
+apt-get -y install npm nodejs-legacy
+
+# Install log.io
+sudo npm install -g log.io --user "vagrant"
+
+cat > /etc/init/log.io-server.conf <<'EOF'
+description "start log.io server"
+
+start on runlevel [2345]
+stop on runlevel [016]
+respawn
+
+exec su -s /bin/sh -c 'exec "$0" "$@"' vagrant -- /usr/local/bin/log.io-server
+EOF
+
+cat > /etc/init/log.io-harvester.conf <<'EOF'
+description "start log.io harvester"
+
+start on runlevel [2345]
+stop on runlevel [016]
+respawn
+
+exec su -s /bin/sh -c 'exec "$0" "$@"' vagrant -- /usr/local/bin/log.io-harvester
+EOF
+
+cat > /home/vagrant/.log.io/harvester.conf <<'EOF'
+exports.config = {
+  nodeName: "t3kit",
+  logStreams: {
+    apache: [
+      "/var/log/apache2/error.log"
+    ],
+    mysql: [
+      "/var/log/mysql/error.log",
+      "/var/log/mysql/mysql-slow.log"
+    ]
+  },
+  server: {
+    host: '0.0.0.0',
+    port: 28777
+  }
+}
+EOF
 
 # Install MySQL
 apt-get -y install debconf-utils > /dev/null 2>&1
@@ -84,6 +129,11 @@ upload_max_filesize=200M
 post_max_size=400M
 max_input_vars=1500
 
+slow-query-log = 1
+slow-query-log-file = /var/log/mysql/mysql-slow.log
+long_query_time = 2
+;log-queries-not-using-indexes
+
 EnableSendfile Off
 
 date.timezone=Europe/Stockholm
@@ -96,6 +146,16 @@ opcache.memory_consumption=192
 opcache.interned_strings_buffer=16
 opcache.fast_shutdown=1
 EOF
+
+# apache additional config
+cat > /etc/apache2/conf-available/vagrant.conf <<'EOF'
+<IfModule mpm_prefork_module>
+        MaxRequestWorkers         50
+</IfModule>
+EOF
+
+# enable mod expires
+a2enconf vagrant > /dev/null 2>&1
 
 ##Adding all locales
 #sudo ln -s /usr/share/i18n/SUPPORTED /var/lib/locales/supported.d/all > /dev/null 2>&1
@@ -129,30 +189,16 @@ a2enmod expires > /dev/null 2>&1
 #Adding mysql settings
 cat > /etc/mysql/conf.d/vagrant.cnf <<'EOF'
 [mysqld]
-key_buffer = 64M
-sort_buffer = 1M
-join_buffer = 12M
-max_allowed_packet = 8M
-max_heap_table_size = 320M
-table_cache = 3096
-thread_cache_size = 4
-query_cache_limit = 512M
-query_cache_size = 128M
-tmp_table_size = 320M
-#innodb_buffer_pool_size = 256M
-innodb_buffer_pool_size = 1024M
-innodb_flush_log_at_trx_commit = 0
-max_allowed_packet=64M
-skip-name-resolve=ON
-#skip_networking=ON
-bulk_insert_buffer_size=32M
-#innodb_flush_method = O_DIRECT
+
+#Disable Query Cache
+query_cache_type=0
+
 # Allow remote connections to mysql on virtual machine
 bind-address = 0.0.0.0
 
-#[mysql]
-#sql_log_bin=0
-#sql_log_off=1
+# Skip reverse DNS lookup of clients
+skip-name-resolve=ON
+
 EOF
 #Allow mysql root user remote access
 mysql -uroot -p1234 -e "GRANT ALL ON *.* to root@'%' IDENTIFIED BY '1234';"
