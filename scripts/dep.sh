@@ -185,6 +185,10 @@ a2enmod expires > /dev/null 2>&1
 cat > /etc/mysql/conf.d/vagrant.cnf <<'EOF'
 [mysqld]
 
+tmp_table_size=32M
+max_heap_table_size=32M
+max_connections = 100
+
 # Innodb per table
 innodb_file_per_table=1
 
