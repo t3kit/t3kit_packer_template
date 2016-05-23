@@ -129,11 +129,6 @@ upload_max_filesize=200M
 post_max_size=400M
 max_input_vars=1500
 
-slow-query-log = 1
-slow-query-log-file = /var/log/mysql/mysql-slow.log
-long_query_time = 2
-;log-queries-not-using-indexes
-
 EnableSendfile Off
 
 date.timezone=Europe/Stockholm
@@ -190,6 +185,9 @@ a2enmod expires > /dev/null 2>&1
 cat > /etc/mysql/conf.d/vagrant.cnf <<'EOF'
 [mysqld]
 
+# Innodb per table
+innodb_file_per_table=1
+
 #Disable Query Cache
 query_cache_type=0
 
@@ -198,6 +196,13 @@ bind-address = 0.0.0.0
 
 # Skip reverse DNS lookup of clients
 skip-name-resolve=ON
+
+# Enable slow
+slow-query-log = 1
+slow-query-log-file = /var/log/mysql/mysql-slow.log
+long_query_time = 2
+# log-queries-not-using-indexes
+
 
 EOF
 #Allow mysql root user remote access
